@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import { Cards, Chart, CountryPicker } from './components';
 import styles from './App.module.css';
 import { fetchData } from "./api";
+import { Typography } from '@material-ui/core';
 // import Charts from './components/Chart/Chart';
 
 class App extends Component {
@@ -19,6 +20,7 @@ class App extends Component {
 
         return (
             <div className={ styles.container }>
+                <Typography variant="h2">COVID-19 TRACKER</Typography>
                 <Cards data={this.state.data}/>
                 <CountryPicker/>
                 <Chart/>
