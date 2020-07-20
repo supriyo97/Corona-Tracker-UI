@@ -4,11 +4,11 @@ import { Cards, Chart, CountryPicker } from './components';
 import styles from './App.module.css';
 import { fetchData } from "./api";
 import { Typography } from '@material-ui/core';
-// import Charts from './components/Chart/Chart';
 
 class App extends Component {
     state = {
-        data: {}
+        data : {},
+        country : ''
     }
 
     async componentDidMount() {
@@ -16,14 +16,21 @@ class App extends Component {
         this.setState ({data : fetchedData});
     }
 
+    countryPickerHandler = async (country) => {
+        // console.log(country);
+        const fetchedData = await fetchData(country);
+        this.setState ({data : fetchedData, country : country});
+    } 
+
     render() {
+        const {data, country} = this.state;
 
         return (
             <div className={ styles.container }>
-                <Typography variant="h2">COVID-19 TRACKER</Typography>
-                <Cards data={this.state.data}/>
-                <CountryPicker/>
-                <Chart/>
+                <Typography className={styles.heading} variant="h2">COVID-19 TRACKER</Typography>
+                <Cards data={data}/>
+                <CountryPicker countryPickerHandler={this.countryPickerHandler}/>
+                <Chart data={data} country={country}/>
             </div>
         )
     }
